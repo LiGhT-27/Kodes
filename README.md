@@ -1,1 +1,1 @@
-# Read Contrubuting.md for further instructions
+### Read CONTRIBUTING.md  for further instructions
