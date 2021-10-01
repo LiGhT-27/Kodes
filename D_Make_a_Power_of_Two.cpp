@@ -72,7 +72,7 @@ bool sortbysec(const pair<int,int> &a,const pair<int,int> &b)
 }
 
 void dug(auto a){
-    cout<<a<<" ";
+    cout<<a<<' ';
 }
 
 void decToBinary(int n)
