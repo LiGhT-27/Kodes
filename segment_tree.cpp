@@ -67,7 +67,7 @@ int main()
       
       for(int i=0; i<n; i++) cin>>a[i];
       
-      int *tree=new int[4*n+1];
+      int *tree=new int[4*n+4];
       
       buildtree(tree,a,1,0,n-1);
       
