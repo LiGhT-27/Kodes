@@ -20,7 +20,7 @@ typedef pair<int, int> pii;
     ios::sync_with_stdio(false); \
     cin.tie(0);                  \
     cout.tie(0);
-    
+#define ff first    
 #define rep(a, b, c) for (int a = b; a < c; ++a)
 #define repn(a, b, c) for (int a = b; a <= c; ++a)
 #define repr(a, b, c) for (int a = b; a >= c; --a)
