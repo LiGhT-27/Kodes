@@ -114,7 +114,16 @@ int lcs(string X, string Y, int m, int n)
                 // L[i][j] = max(L[i - 1][j], L[i][j - 1]);
   
 
-
+int LIS(int arr[],int n){
+    vector<int> v;
+    v.push_back(arr[0]);
+    for(int i=1;i<n;i++){
+        auto itr=lower_bound(v.begin(),v.end(),arr[i]);
+        if(itr==v.end())    v.push_back(arr[i]);
+        else    *itr=arr[i];
+    }
+    return v.size();
+}
 
 
 ll cal(string s1,string s2,ll n,ll m)
