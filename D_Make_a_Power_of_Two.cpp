@@ -125,6 +125,49 @@ int LIS(int arr[],int n){
     return v.size();
 }
 
+// KMP Algo
+
+vector<ll> prefunc(string s){
+	long long int n=s.size(),j=0,flag;
+	vector<ll> pf(n,0);
+	for(int i=1;i<n;i++){
+		while(1){
+			if(s[i]==s[j]){
+				pf[i]=j+1;
+				j++;
+				break;
+			}
+			if(j==0)	break;
+			else	j=pf[j-1];
+		}
+	}
+	return pf;
+}
+    
+void check_pattern(string pat,string text, vll pf){
+	ll j=0;
+	for(int i=0i;i<text.size();i++){
+	    if(text[i]==pat[j]) j++;
+	    else{
+		while(1){
+		    if(j==0){
+			if(pat[0]==text[i]) j=1;
+			break;
+		    }
+		    j=pf[j-1];
+		    if(text[i]==pat[j]){
+			j++;
+			break;
+		    }
+		}
+	    }
+	    if(j==pat.sz) {
+		cout<<"pattern found at position "<<i-(j-1)<<endl;
+		j=pf[j-1];
+	    }
+	}
+}
+
 
 ll cal(string s1,string s2,ll n,ll m)
 {
