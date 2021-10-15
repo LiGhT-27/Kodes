@@ -113,6 +113,19 @@ int lcs(string X, string Y, int m, int n)
 
                 // L[i][j] = max(L[i - 1][j], L[i][j - 1]);
   
+// sieve
+vector<int> spf(100005);
+void sieve(){
+    for(int i=1;i<100005;i++)  spf[i]=i;
+    for(int i=4;i<100005;i+=2)  spf[i]=2;
+    for(int i=3;i*i<=100005;i++){
+        if(spf[i]==i){
+            for(int j=i*i;j<100005;j+=i){
+                if(spf[j]==j)   spf[j]=i;
+            }
+        }
+    }
+}
 
 int LIS(int arr[],int n){
     vector<int> v;
