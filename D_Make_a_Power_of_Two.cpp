@@ -90,6 +90,26 @@ void dnl(){
     cout<<nl;
 }
 
+struct custom_hash {
+    static uint64_t splitmix64(uint64_t x) {
+	// use the below link for further help
+	// http://xorshift.di.unimi.it/splitmix64.c
+	x += 0x9e3779b97f4a7c15;
+	x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+	x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+	return x ^ (x >> 31);
+    }
+
+    size_t operator()(uint64_t x) const {
+	static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+	return splitmix64(x + FIXED_RANDOM);
+    }
+};
+
+// now use the below lines to implement unordered map using the custom hash
+// unordered_map<long long, int, custom_hash> safe_map;
+// gp_hash_table<long long, int, custom_hash> safe_hash_table;
+
 int lcs(string X, string Y, int m, int n)
 {
     int L[m + 1][n + 1];
@@ -113,8 +133,73 @@ int lcs(string X, string Y, int m, int n)
 
                 // L[i][j] = max(L[i - 1][j], L[i][j - 1]);
   
+// sieve
+vector<int> spf(100005);
+void sieve(){
+    for(int i=1;i<100005;i++)  spf[i]=i;
+    for(int i=4;i<100005;i+=2)  spf[i]=2;
+    for(int i=3;i*i<=100005;i++){
+        if(spf[i]==i){
+            for(int j=i*i;j<100005;j+=i){
+                if(spf[j]==j)   spf[j]=i;
+            }
+        }
+    }
+}
 
+int LIS(int arr[],int n){
+    vector<int> v;
+    v.push_back(arr[0]);
+    for(int i=1;i<n;i++){
+        auto itr=lower_bound(v.begin(),v.end(),arr[i]);
+        if(itr==v.end())    v.push_back(arr[i]);
+        else    *itr=arr[i];
+    }
+    return v.size();
+}
 
+// KMP Algo
+
+vector<ll> prefunc(string s){
+	long long int n=s.size(),j=0,flag;
+	vector<ll> pf(n,0);
+	for(int i=1;i<n;i++){
+		while(1){
+			if(s[i]==s[j]){
+				pf[i]=j+1;
+				j++;
+				break;
+			}
+			if(j==0)	break;
+			else	j=pf[j-1];
+		}
+	}
+	return pf;
+}
+    
+void check_pattern(string pat,string text, vll pf){
+	ll j=0;
+	for(int i=0i;i<text.size();i++){
+	    if(text[i]==pat[j]) j++;
+	    else{
+		while(1){
+		    if(j==0){
+			if(pat[0]==text[i]) j=1;
+			break;
+		    }
+		    j=pf[j-1];
+		    if(text[i]==pat[j]){
+			j++;
+			break;
+		    }
+		}
+	    }
+	    if(j==pat.sz) {
+		cout<<"pattern found at position "<<i-(j-1)<<endl;
+		j=pf[j-1];
+	    }
+	}
+}
 
 
 ll cal(string s1,string s2,ll n,ll m)
