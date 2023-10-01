@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-#define ll long long int
+#include <stdio.h>
+#define ll long long
 #define pb push_back
 #define sp(x,y) fixed<<setprecision(x)<<y
 
